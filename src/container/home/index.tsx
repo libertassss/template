@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 interface homeProp {}
 const Home: FC<homeProp> = (props: homeProp) => {
     return <>
-        hello word
+        <div>哈哈哈</div>
     </>
 }
 
