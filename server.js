@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const compiler = webpack(webpackConfig);
 const env = process.env.NODE_ENV; 
 const app = express();
-const PORT = 8888;
+const PORT = 8881;
 const DIST_DIR = webpackConfig.output.path;
 
 

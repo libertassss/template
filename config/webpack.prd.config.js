@@ -15,6 +15,14 @@ module.exports = merge(commonConfig,{
         filename: 'static/[name].[contenthash].js',
         publicPath: PUBLIC_PATH
     },
+    module: {
+        rules: [
+            {
+                test: /\.(less|css)/,
+                use: [MiniCssExtractPlugin.loader,'css-loader','postcss-loader','less-loader']
+            }
+        ]
+    },
     optimization: {
         minimize: true,
         minimizer: [

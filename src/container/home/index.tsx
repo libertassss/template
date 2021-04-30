@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
+import './index.less';
 
 interface homeProp {}
 const Home: FC<homeProp> = (props: homeProp) => {
     return <>
-        <div>哈哈哈</div>
+        <div className="demo">hello word</div>
     </>
 }
 
