@@ -15,7 +15,9 @@ if(env === 'development'){
     app.use(webpackDevMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath
     }));
-    app.use(webpackHotMiddleware(compiler));
+    app.use(webpackHotMiddleware(compiler, {
+        log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+    }));
     app.get('*', (req, res, next) => {
         const filename = path.join(DIST_DIR, 'index.html');
         // 由于index.html是由html-webpack-plugin生成到内存中的，所以使用下面的方式获取
