@@ -4,12 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Root from './root';
 import ReactDOM from 'react-dom';
 interface propsType {}
-const basename =
-  process.env.NODE_ENV == 'development'
-    ? '/'
-    : window.__POWERED_BY_QIANKUN__
-    ? '/child/template'
-    : '/';
+const basename = window.__POWERED_BY_QIANKUN__ ? '/child/template' : '/';
 const App: FC<propsType> = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
