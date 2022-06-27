@@ -1,13 +1,17 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const env = process.env.NODE_ENV;
-const PUBLIC_PATH = env === 'development' ? '/' : 'http://172.17.15.172:5000'; // 基础路径
+const PUBLIC_PATH = env === 'development' ? '/' : '/sub/child/template'; // 基础路径
 const path = require('path');
+const packageName = require('../package.json').name;
 module.exports = {
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: 'static/[name].[contenthash].js',
     publicPath: PUBLIC_PATH,
+    library: `${packageName}-[name]`,
+    libraryTarget: 'umd',
+    chunkLoadingGlobal: `webpackJsonp_${packageName}`,
   },
   module: {
     rules: [

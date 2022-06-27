@@ -4,15 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonConfig = require('./webpack.common.config');
-const { name } = require('./package');
 module.exports = merge(commonConfig, {
   entry: path.join(__dirname, '../app.tsx'),
-  output: {
-    library: `${name}-[name]`,
-    libraryTarget: 'umd',
-    jsonpFunction: `webpackJsonp_${name}`,
-    globalObject: 'window',
-  },
   module: {
     rules: [
       {
@@ -41,7 +34,7 @@ module.exports = merge(commonConfig, {
       template: path.resolve(__dirname, '../src/index.html'),
       filename: `index.html`,
       chunks: `[name]`,
-      inject: true,
+      inject: 'body',
     }),
     new MiniCssExtractPlugin({
       // 类似于 webpackOptions.output 中的选项

@@ -11,15 +11,15 @@ const PORT = 8881;
 const DIST_DIR = webpackConfig.output.path;
 
 if (env === 'development') {
+  app.use((request, response, next) => {
+    response.header('Access-Control-Allow-Origin', '*'); // 跨域最重要的一步 设置响应头
+    next(); // 执行next函数执行后续代码
+  });
   app.use(
     webpackDevMiddleware(compiler, {
       publicPath: webpackConfig.output.publicPath,
     }),
   );
-  app.use((request, response, next) => {
-    response.header('Access-Control-Allow-Origin', '*'); // 跨域最重要的一步 设置响应头
-    next(); // 执行next函数执行后续代码
-  });
   app.use(
     webpackHotMiddleware(compiler, {
       log: console.log,

@@ -8,7 +8,7 @@ const basename =
   process.env.NODE_ENV == 'development'
     ? '/'
     : window.__POWERED_BY_QIANKUN__
-    ? '/app-react'
+    ? '/child/template'
     : '/';
 const App: FC<propsType> = () => {
   return (
@@ -22,6 +22,7 @@ const App: FC<propsType> = () => {
 
 function render(props: any) {
   const { container } = props;
+  console.log('container', container);
   ReactDOM.render(
     <App />,
     container
@@ -32,9 +33,6 @@ function render(props: any) {
 
 if (!window.__POWERED_BY_QIANKUN__) {
   render({});
-  if (module.hot) {
-    module.hot.accept();
-  }
 }
 
 export async function bootstrap() {
@@ -42,15 +40,20 @@ export async function bootstrap() {
 }
 
 export async function mount(props: any) {
-  console.log('[react16] props from main framework', props);
+  console.log('已加载子应用');
   render(props);
 }
 
 export async function unmount(props: any) {
+  console.log('已结束子应用');
   const { container } = props;
   ReactDOM.unmountComponentAtNode(
     container
       ? container.querySelector('#root')
       : document.querySelector('#root'),
   );
+}
+
+if (module.hot) {
+  module.hot.accept();
 }
