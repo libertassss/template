@@ -4,6 +4,7 @@ const path = require('path');
 const packageName = require('../package.json').name;
 const WebpackBar = require('webpackbar');
 module.exports = {
+  stats: 'errors-warnings',
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: 'static/[name].[contenthash].js',
