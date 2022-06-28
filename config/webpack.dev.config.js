@@ -3,12 +3,14 @@ const webpack = require('webpack');
 const commonConfig = require('./webpack.common.config');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 module.exports = merge(commonConfig, {
   mode: 'development',
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-    path.join(__dirname, `../app.tsx`),
+    path.join(__dirname, `../src/app.tsx`),
   ],
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -33,9 +35,17 @@ module.exports = merge(commonConfig, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src/index.html'),
-      inject: 'body',
+      template: path.resolve(__dirname, '../index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+        mode: 'write-references',
+      },
+    }),
   ],
 });

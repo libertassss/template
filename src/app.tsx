@@ -1,4 +1,4 @@
-import './src/public-path';
+import './public-path';
 import React, { FC, Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Root from './root';

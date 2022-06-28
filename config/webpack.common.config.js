@@ -1,5 +1,3 @@
-const TerserPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const env = process.env.NODE_ENV;
 const PUBLIC_PATH = env === 'development' ? '/' : '/sub/child/template'; // 基础路径
 const path = require('path');
@@ -17,35 +15,28 @@ module.exports = {
     rules: [
       {
         test: /\.(js|ts|jsx|tsx)$/,
+        include: path.join(__dirname, '../src'),
         use: ['babel-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8 * 1024,
+          },
+        },
+        generator: {
+          filename: 'images/[name][ext]', // 单独指定 名字
+        },
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        commons: {
-          chunks: 'initial',
-          minChunks: 2,
-          name: 'commons',
-          maxInitialRequests: 5,
-          minSize: 0, // 默认是30kb，minSize设置为0之后
-        },
-        reactBase: {
-          test: (module) => {
-            return /react|redux|prop-types/.test(module.context);
-          }, // 直接使用 test 来做路径匹配，抽离react相关代码
-          chunks: 'initial',
-          name: 'reactBase',
-          priority: 10,
-        },
-      },
-    },
-    minimize: true,
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
-  },
   resolve: {
-    extensions: ['.js', '.tsx', '.jsx', '.ts'],
+    extensions: ['.js', '.tsx', '.ts'],
+    alias: {
+      '@': path.join(__dirname, '../src'),
+    },
+    symlinks: false,
   },
 };
