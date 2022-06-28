@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonConfig = require('./webpack.common.config');
-const { getFiles, getPlugins } = require('./entryFile.config');
 module.exports = merge(commonConfig, {
   entry: path.join(__dirname, `../src/app.tsx`),
   module: {
