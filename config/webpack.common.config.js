@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV;
 const PUBLIC_PATH = env === 'development' ? '/' : '/sub/child/template'; // 基础路径
 const path = require('path');
 const packageName = require('../package.json').name;
+const WebpackBar = require('webpackbar');
 module.exports = {
   output: {
     path: path.resolve(__dirname, '../build'),
@@ -27,7 +28,8 @@ module.exports = {
           },
         },
         generator: {
-          filename: 'images/[name][ext]', // 单独指定 名字
+          publicPath: '/assets/images/',
+          outputPath: 'assets/images/',
         },
       },
     ],
@@ -39,4 +41,5 @@ module.exports = {
     },
     symlinks: false,
   },
+  plugins: [new WebpackBar()],
 };

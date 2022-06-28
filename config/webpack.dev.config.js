@@ -4,7 +4,6 @@ const commonConfig = require('./webpack.common.config');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const WebpackBar = require('webpackbar');
 module.exports = merge(commonConfig, {
   mode: 'development',
   stats: 'errors-only',
@@ -49,6 +48,5 @@ module.exports = merge(commonConfig, {
         mode: 'write-references',
       },
     }),
-    new WebpackBar(),
   ],
 });
